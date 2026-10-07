@@ -1,0 +1,926 @@
+Crie o arquivo atividade_biblioteca_sqlite.md.
+
+Coloque TODAS as informações abaixo dentro desse arquivo.
+
+Não crie apenas um resumo.
+
+Não remova nenhuma etapa.
+
+Não pule explicações.
+
+O arquivo deve ser um material de estudo completo.
+
+Use Markdown corretamente.
+
+Utilize títulos #, ## e ###.
+
+Utilize blocos de código SQL com ```sql.
+
+Explique cada comando em linguagem simples.
+
+Considere que o aluno é completamente iniciante em SQL.
+
+Todos os dados devem ser fictícios.
+
+Utilize SQLite, não MySQL, PostgreSQL ou SQL Server.
+
+1. TÍTULO DA ATIVIDADE
+Crie no início do arquivo:
+
+Atividade Prática de SQLite — Biblioteca Universitária
+Inclua uma breve descrição dizendo que o objetivo é construir um banco de dados simples para controlar alunos, livros, exemplares e empréstimos.
+
+2. OBJETIVOS
+Explique que ao terminar a atividade o aluno deverá entender:
+
+O que é um banco de dados;
+
+O que é uma tabela;
+
+O que é uma coluna;
+
+O que é um registro;
+
+O que é uma chave primária;
+
+O que é uma chave estrangeira;
+
+Como criar tabelas;
+
+Como inserir dados;
+
+Como consultar dados;
+
+Como filtrar dados;
+
+Como ordenar dados;
+
+Como atualizar dados;
+
+Como excluir dados;
+
+Como relacionar tabelas;
+
+Como utilizar JOIN;
+
+Como utilizar COUNT;
+
+Como utilizar GROUP BY;
+
+Como utilizar CASE.
+
+3. EXPLICAÇÃO DOS CONCEITOS BÁSICOS
+Explique cada conceito abaixo de maneira extremamente simples.
+
+3.1 O que é um banco de dados?
+Explique usando uma biblioteca como exemplo.
+
+3.2 O que é uma tabela?
+Explique comparando uma tabela com uma planilha.
+
+3.3 O que é uma coluna?
+Explique que uma coluna representa um tipo de informação.
+
+Exemplo:
+
+nome;
+
+curso;
+
+email.
+
+3.4 O que é um registro?
+Explique que cada linha da tabela representa um registro.
+
+3.5 O que é PRIMARY KEY?
+Explique que a chave primária identifica cada registro de maneira única.
+
+Exemplo:
+
+Cada aluno possui um id_aluno.
+
+3.6 O que é FOREIGN KEY?
+Explique que a chave estrangeira cria uma ligação entre tabelas.
+
+Utilize exemplos da biblioteca.
+
+3.7 O que é NULL?
+Explique que NULL representa ausência de valor.
+
+Utilize como exemplo um livro que ainda não foi devolvido.
+
+4. ESTRUTURA DO BANCO
+O banco deve possuir exatamente quatro tabelas:
+
+alunos
+
+livros
+
+exemplares
+
+emprestimos
+
+Explique a função de cada uma.
+
+Tabela alunos
+Campos:
+
+id_aluno
+
+nome
+
+curso
+
+email
+
+Tabela livros
+Campos:
+
+id_livro
+
+titulo
+
+autor
+
+ano_publicacao
+
+Tabela exemplares
+Campos:
+
+id_exemplar
+
+id_livro
+
+numero_exemplar
+
+status
+
+Tabela emprestimos
+Campos:
+
+id_emprestimo
+
+id_aluno
+
+id_exemplar
+
+data_emprestimo
+
+data_devolucao
+
+Explique que um livro pode possuir vários exemplares físicos.
+
+Explique também que o empréstimo relaciona um aluno a um exemplar.
+
+5. RELACIONAMENTO ENTRE AS TABELAS
+Mostre esta representação:
+
+ALUNOS
+   |
+   | 1:N
+   v
+EMPRESTIMOS
+   |
+   | N:1
+   v
+EXEMPLARES
+   |
+   | N:1
+   v
+LIVROS
+
+Explique o que significa 1:N.
+
+Explique os relacionamentos:
+
+Um aluno pode realizar vários empréstimos.
+
+Um livro pode possuir vários exemplares.
+
+Um exemplar pode participar de vários empréstimos ao longo do tempo.
+
+Cada empréstimo pertence a um aluno.
+
+Cada empréstimo pertence a um exemplar.
+
+Cada exemplar pertence a um livro.
+
+6. CRIAÇÃO DAS TABELAS
+Apresente e explique este código:
+
+PRAGMA foreign_keys = ON;
+
+DROP TABLE IF EXISTS emprestimos;
+DROP TABLE IF EXISTS exemplares;
+DROP TABLE IF EXISTS livros;
+DROP TABLE IF EXISTS alunos;
+
+CREATE TABLE alunos (
+    id_aluno INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+    curso TEXT NOT NULL,
+    email TEXT NOT NULL
+);
+
+CREATE TABLE livros (
+    id_livro INTEGER PRIMARY KEY AUTOINCREMENT,
+    titulo TEXT NOT NULL,
+    autor TEXT NOT NULL,
+    ano_publicacao INTEGER NOT NULL
+);
+
+CREATE TABLE exemplares (
+    id_exemplar INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_livro INTEGER NOT NULL,
+    numero_exemplar INTEGER NOT NULL,
+    status TEXT NOT NULL,
+    FOREIGN KEY (id_livro) REFERENCES livros(id_livro)
+);
+
+CREATE TABLE emprestimos (
+    id_emprestimo INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_aluno INTEGER NOT NULL,
+    id_exemplar INTEGER NOT NULL,
+    data_emprestimo TEXT NOT NULL,
+    data_devolucao TEXT,
+    FOREIGN KEY (id_aluno) REFERENCES alunos(id_aluno),
+    FOREIGN KEY (id_exemplar) REFERENCES exemplares(id_exemplar)
+);
+
+Depois do código, explique individualmente:
+
+PRAGMA foreign_keys = ON
+
+DROP TABLE IF EXISTS
+
+CREATE TABLE
+
+INTEGER
+
+TEXT
+
+PRIMARY KEY
+
+AUTOINCREMENT
+
+NOT NULL
+
+FOREIGN KEY
+
+REFERENCES
+
+Explique tudo para um iniciante.
+
+7. INSERINDO OS ALUNOS
+Explique o comando INSERT INTO.
+
+Insira exatamente 5 alunos:
+
+INSERT INTO alunos (nome, curso, email) VALUES
+('Ana Souza', 'Engenharia de Software', 'ana.souza@universidade.edu.br'),
+('Bruno Oliveira', 'Administração', 'bruno.oliveira@universidade.edu.br'),
+('Carla Santos', 'Ciência da Computação', 'carla.santos@universidade.edu.br'),
+('Diego Pereira', 'Engenharia Civil', 'diego.pereira@universidade.edu.br'),
+('Fernanda Lima', 'Direito', 'fernanda.lima@universidade.edu.br');
+
+Explique:
+
+INSERT INTO;
+
+nome da tabela;
+
+nomes das colunas;
+
+VALUES;
+
+parênteses;
+
+aspas;
+
+vírgulas;
+
+ponto e vírgula.
+
+8. INSERINDO OS LIVROS
+Insira exatamente 5 livros:
+
+INSERT INTO livros (titulo, autor, ano_publicacao) VALUES
+('Fundamentos de Banco de Dados', 'Carlos Almeida', 2021),
+('Algoritmos e Estruturas de Dados', 'Mariana Costa', 2020),
+('Introdução à Administração', 'Roberto Martins', 2019),
+('Engenharia de Software', 'Paulo Ferreira', 2022),
+('Metodologia Científica', 'Luciana Rodrigues', 2018);
+
+Explique cada parte.
+
+9. INSERINDO OS EXEMPLARES
+Insira exatamente 5 exemplares:
+
+INSERT INTO exemplares (id_livro, numero_exemplar, status) VALUES
+(1, 1, 'Disponível'),
+(1, 2, 'Emprestado'),
+(2, 1, 'Disponível'),
+(3, 1, 'Emprestado'),
+(4, 1, 'Manutenção');
+
+Explique que:
+
+O livro 1 possui dois exemplares.
+
+O livro 2 possui um exemplar.
+
+O livro 3 possui um exemplar.
+
+O livro 4 possui um exemplar.
+
+O livro 5 ainda não possui exemplar cadastrado.
+
+Explique por que utilizamos id_livro em vez de repetir o nome do livro.
+
+10. INSERINDO OS EMPRÉSTIMOS
+Insira exatamente 5 empréstimos:
+
+INSERT INTO emprestimos
+(id_aluno, id_exemplar, data_emprestimo, data_devolucao) VALUES
+(1, 2, '2026-09-01', NULL),
+(2, 4, '2026-09-03', '2026-09-10'),
+(3, 1, '2026-09-05', '2026-09-12'),
+(4, 3, '2026-09-08', '2026-09-15'),
+(5, 2, '2026-09-20', NULL);
+
+Explique:
+
+id_aluno;
+
+id_exemplar;
+
+data_emprestimo;
+
+data_devolucao;
+
+NULL.
+
+Explique por que os empréstimos utilizam IDs existentes nas outras tabelas.
+
+11. SELECT
+Explique que SELECT serve para consultar dados.
+
+Mostrar todos os alunos
+SELECT * FROM alunos;
+
+Explique:
+
+SELECT;
+
+*;
+
+FROM.
+
+Mostrar somente nome e curso
+SELECT nome, curso
+FROM alunos;
+
+Mostrar todos os livros
+SELECT * FROM livros;
+
+12. WHERE
+Explique que WHERE serve para filtrar registros.
+
+Livros publicados depois de 2020
+SELECT *
+FROM livros
+WHERE ano_publicacao > 2020;
+
+Explique o operador >.
+
+Alunos de Ciência da Computação
+SELECT *
+FROM alunos
+WHERE curso = 'Ciência da Computação';
+
+Explique o operador =.
+
+13. ORDER BY
+Explique que ORDER BY serve para ordenar os resultados.
+
+Ordem alfabética
+SELECT *
+FROM alunos
+ORDER BY nome ASC;
+
+Explique ASC.
+
+Mais recente para mais antigo
+SELECT *
+FROM livros
+ORDER BY ano_publicacao DESC;
+
+Explique DESC.
+
+14. UPDATE
+Explique que UPDATE altera dados existentes.
+
+Utilize:
+
+UPDATE exemplares
+SET status = 'Disponível'
+WHERE id_exemplar = 5;
+
+Explique:
+
+UPDATE;
+
+SET;
+
+WHERE.
+
+Explique por que o WHERE é extremamente importante.
+
+Mostre o perigo de executar:
+
+UPDATE exemplares
+SET status = 'Disponível';
+
+Explique que sem WHERE todos os exemplares poderiam ser alterados.
+
+15. DELETE
+Explique que DELETE remove registros.
+
+Mostre:
+
+DELETE FROM alunos
+WHERE id_aluno = 5;
+
+Explique que esse comando NÃO deve ser executado no script principal da atividade.
+
+Explique também que a existência de registros relacionados em emprestimos pode impedir a exclusão por causa das chaves estrangeiras.
+
+Mostre também o perigo de:
+
+DELETE FROM alunos;
+
+Explique que sem WHERE todos os alunos seriam removidos.
+
+16. JOIN
+Explique JOIN como uma ponte que permite juntar informações de diferentes tabelas.
+
+Utilize:
+
+SELECT
+    alunos.nome,
+    alunos.curso,
+    livros.titulo,
+    emprestimos.data_emprestimo,
+    emprestimos.data_devolucao
+FROM emprestimos
+JOIN alunos
+    ON emprestimos.id_aluno = alunos.id_aluno
+JOIN exemplares
+    ON emprestimos.id_exemplar = exemplares.id_exemplar
+JOIN livros
+    ON exemplares.id_livro = livros.id_livro;
+
+Explique detalhadamente:
+
+JOIN;
+
+ON;
+
+emprestimos.id_aluno;
+
+alunos.id_aluno;
+
+emprestimos.id_exemplar;
+
+exemplares.id_exemplar;
+
+exemplares.id_livro;
+
+livros.id_livro.
+
+Mostre visualmente:
+
+ALUNOS
+   |
+   | id_aluno
+   |
+EMPRESTIMOS
+   |
+   | id_exemplar
+   |
+EXEMPLARES
+   |
+   | id_livro
+   |
+LIVROS
+
+17. JOIN + WHERE + NULL
+Mostre os empréstimos que ainda não foram devolvidos:
+
+SELECT
+    alunos.nome,
+    livros.titulo,
+    emprestimos.data_emprestimo
+FROM emprestimos
+JOIN alunos
+    ON emprestimos.id_aluno = alunos.id_aluno
+JOIN exemplares
+    ON emprestimos.id_exemplar = exemplares.id_exemplar
+JOIN livros
+    ON exemplares.id_livro = livros.id_livro
+WHERE emprestimos.data_devolucao IS NULL;
+
+Explique por que usamos:
+
+IS NULL
+
+e não:
+
+= NULL
+
+18. COUNT
+Explique que COUNT serve para contar registros.
+
+Total de alunos
+SELECT COUNT(*) AS total_alunos
+FROM alunos;
+
+Total de livros
+SELECT COUNT(*) AS total_livros
+FROM livros;
+
+Total de empréstimos
+SELECT COUNT(*) AS total_emprestimos
+FROM emprestimos;
+
+Explique o significado de AS.
+
+19. GROUP BY
+Explique GROUP BY de maneira simples.
+
+Mostre quantos empréstimos cada aluno realizou:
+
+SELECT
+    alunos.nome,
+    COUNT(emprestimos.id_emprestimo) AS quantidade_emprestimos
+FROM alunos
+LEFT JOIN emprestimos
+    ON alunos.id_aluno = emprestimos.id_aluno
+GROUP BY alunos.id_aluno, alunos.nome;
+
+Explique:
+
+GROUP BY;
+
+COUNT;
+
+LEFT JOIN;
+
+por que LEFT JOIN é interessante nessa consulta.
+
+20. CONSULTAS EXTRAS
+Exemplares disponíveis
+SELECT *
+FROM exemplares
+WHERE status = 'Disponível';
+
+Exemplares emprestados
+SELECT *
+FROM exemplares
+WHERE status = 'Emprestado';
+
+Livros e seus exemplares
+SELECT
+    livros.titulo,
+    exemplares.numero_exemplar,
+    exemplares.status
+FROM livros
+JOIN exemplares
+    ON livros.id_livro = exemplares.id_livro;
+
+Empréstimos em aberto
+SELECT *
+FROM emprestimos
+WHERE data_devolucao IS NULL;
+
+Histórico completo
+SELECT
+    alunos.nome AS aluno,
+    livros.titulo AS livro,
+    exemplares.numero_exemplar AS exemplar,
+    emprestimos.data_emprestimo,
+    emprestimos.data_devolucao
+FROM emprestimos
+JOIN alunos
+    ON emprestimos.id_aluno = alunos.id_aluno
+JOIN exemplares
+    ON emprestimos.id_exemplar = exemplares.id_exemplar
+JOIN livros
+    ON exemplares.id_livro = livros.id_livro
+ORDER BY emprestimos.data_emprestimo;
+
+Explique todas as consultas.
+
+21. CASE
+Explique que CASE permite criar uma condição dentro do SQL.
+
+Mostre:
+
+SELECT
+    alunos.nome,
+    alunos.curso,
+    livros.titulo,
+    exemplares.numero_exemplar,
+    emprestimos.data_emprestimo,
+    CASE
+        WHEN emprestimos.data_devolucao IS NULL THEN 'Em aberto'
+        ELSE 'Devolvido'
+    END AS situacao
+FROM emprestimos
+JOIN alunos
+    ON emprestimos.id_aluno = alunos.id_aluno
+JOIN exemplares
+    ON emprestimos.id_exemplar = exemplares.id_exemplar
+JOIN livros
+    ON exemplares.id_livro = livros.id_livro;
+
+Explique:
+
+CASE;
+
+WHEN;
+
+THEN;
+
+ELSE;
+
+END;
+
+AS.
+
+Explique em linguagem simples:
+
+"Se a data de devolução estiver vazia, mostre Em aberto. Caso contrário, mostre Devolvido."
+
+22. EXERCÍCIOS
+Crie uma seção chamada:
+
+Exercícios
+Apresente os exercícios primeiro sem respostas.
+
+Crie pelo menos 10 exercícios:
+
+Liste todos os alunos.
+
+Liste somente os nomes dos alunos.
+
+Liste os livros em ordem alfabética.
+
+Mostre os livros publicados depois de 2020.
+
+Mostre os exemplares disponíveis.
+
+Mostre os empréstimos que ainda não foram devolvidos.
+
+Mostre o nome dos alunos que realizaram empréstimos.
+
+Mostre os títulos dos livros emprestados.
+
+Conte quantos alunos existem.
+
+Conte quantos livros existem.
+
+Conte quantos empréstimos existem.
+
+Mostre quantos empréstimos cada aluno realizou.
+
+Mostre o histórico completo dos empréstimos.
+
+Mostre apenas os empréstimos em aberto.
+
+Mostre o nome do aluno e o título do livro emprestado.
+
+23. GABARITO
+Depois dos exercícios, crie:
+
+Gabarito
+Para cada exercício:
+
+Mostre o código SQL;
+
+Explique o código;
+
+Explique o resultado esperado.
+
+24. DESAFIO FINAL
+Crie:
+
+Desafio Final
+Peça ao aluno para criar uma consulta que mostre:
+
+Nome do aluno;
+
+Curso;
+
+Título do livro;
+
+Número do exemplar;
+
+Data do empréstimo;
+
+Situação da devolução.
+
+A situação deve ser:
+
+Em aberto quando data_devolucao for NULL;
+
+Devolvido quando houver uma data de devolução.
+
+Depois do desafio, apresente o gabarito:
+
+SELECT
+    alunos.nome,
+    alunos.curso,
+    livros.titulo,
+    exemplares.numero_exemplar,
+    emprestimos.data_emprestimo,
+    CASE
+        WHEN emprestimos.data_devolucao IS NULL THEN 'Em aberto'
+        ELSE 'Devolvido'
+    END AS situacao
+FROM emprestimos
+JOIN alunos
+    ON emprestimos.id_aluno = alunos.id_aluno
+JOIN exemplares
+    ON emprestimos.id_exemplar = exemplares.id_exemplar
+JOIN livros
+    ON exemplares.id_livro = livros.id_livro;
+
+Explique o código linha por linha.
+
+25. SCRIPT SQL COMPLETO
+No final do arquivo, crie uma seção:
+
+Script SQL Completo
+Essa seção deve conter UM ÚNICO bloco SQL que possa ser copiado e executado diretamente no SQLite.
+
+Use exatamente este script:
+
+PRAGMA foreign_keys = ON;
+
+DROP TABLE IF EXISTS emprestimos;
+DROP TABLE IF EXISTS exemplares;
+DROP TABLE IF EXISTS livros;
+DROP TABLE IF EXISTS alunos;
+
+CREATE TABLE alunos (
+    id_aluno INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+    curso TEXT NOT NULL,
+    email TEXT NOT NULL
+);
+
+CREATE TABLE livros (
+    id_livro INTEGER PRIMARY KEY AUTOINCREMENT,
+    titulo TEXT NOT NULL,
+    autor TEXT NOT NULL,
+    ano_publicacao INTEGER NOT NULL
+);
+
+CREATE TABLE exemplares (
+    id_exemplar INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_livro INTEGER NOT NULL,
+    numero_exemplar INTEGER NOT NULL,
+    status TEXT NOT NULL,
+    FOREIGN KEY (id_livro) REFERENCES livros(id_livro)
+);
+
+CREATE TABLE emprestimos (
+    id_emprestimo INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_aluno INTEGER NOT NULL,
+    id_exemplar INTEGER NOT NULL,
+    data_emprestimo TEXT NOT NULL,
+    data_devolucao TEXT,
+    FOREIGN KEY (id_aluno) REFERENCES alunos(id_aluno),
+    FOREIGN KEY (id_exemplar) REFERENCES exemplares(id_exemplar)
+);
+
+INSERT INTO alunos (nome, curso, email) VALUES
+('Ana Souza', 'Engenharia de Software', 'ana.souza@universidade.edu.br'),
+('Bruno Oliveira', 'Administração', 'bruno.oliveira@universidade.edu.br'),
+('Carla Santos', 'Ciência da Computação', 'carla.santos@universidade.edu.br'),
+('Diego Pereira', 'Engenharia Civil', 'diego.pereira@universidade.edu.br'),
+('Fernanda Lima', 'Direito', 'fernanda.lima@universidade.edu.br');
+
+INSERT INTO livros (titulo, autor, ano_publicacao) VALUES
+('Fundamentos de Banco de Dados', 'Carlos Almeida', 2021),
+('Algoritmos e Estruturas de Dados', 'Mariana Costa', 2020),
+('Introdução à Administração', 'Roberto Martins', 2019),
+('Engenharia de Software', 'Paulo Ferreira', 2022),
+('Metodologia Científica', 'Luciana Rodrigues', 2018);
+
+INSERT INTO exemplares (id_livro, numero_exemplar, status) VALUES
+(1, 1, 'Disponível'),
+(1, 2, 'Emprestado'),
+(2, 1, 'Disponível'),
+(3, 1, 'Emprestado'),
+(4, 1, 'Manutenção');
+
+INSERT INTO emprestimos
+(id_aluno, id_exemplar, data_emprestimo, data_devolucao) VALUES
+(1, 2, '2026-09-01', NULL),
+(2, 4, '2026-09-03', '2026-09-10'),
+(3, 1, '2026-09-05', '2026-09-12'),
+(4, 3, '2026-09-08', '2026-09-15'),
+(5, 2, '2026-09-20', NULL);
+
+26. RESUMO DOS PRINCIPAIS COMANDOS
+No final do arquivo, faça uma tabela Markdown com:
+
+Comando	O que faz
+CREATE TABLE	Cria uma tabela
+INSERT INTO	Insere dados
+SELECT	Consulta dados
+WHERE	Filtra dados
+ORDER BY	Ordena resultados
+UPDATE	Altera dados
+DELETE	Exclui dados
+JOIN	Junta informações de tabelas
+COUNT	Conta registros
+GROUP BY	Agrupa registros
+CASE	Cria condições no resultado
+
+Explique novamente cada comando em uma frase simples.
+
+27. CONCLUSÃO
+Finalize o arquivo com uma seção:
+
+Conclusão
+Explique que o aluno aprendeu a construir um banco de dados SQLite simples para uma biblioteca universitária.
+
+Reforce que:
+
+alunos guarda os alunos;
+
+livros guarda os livros;
+
+exemplares representa as cópias físicas;
+
+emprestimos registra quem pegou cada exemplar;
+
+as chaves estrangeiras conectam as tabelas;
+
+SELECT consulta informações;
+
+JOIN permite consultar informações relacionadas;
+
+WHERE filtra;
+
+ORDER BY ordena;
+
+COUNT conta;
+
+GROUP BY agrupa;
+
+UPDATE altera;
+
+DELETE remove.
+
+REGRAS FINAIS PARA O ARQUIVO
+O arquivo deve ser salvo exatamente como:
+
+atividade_biblioteca_sqlite.md
+
+Todo o conteúdo deve estar em português do Brasil.
+
+O nível deve ser iniciante.
+
+Não utilize termos técnicos sem explicá-los.
+
+Não utilize dados pessoais reais.
+
+Não altere os nomes das quatro tabelas.
+
+Não altere os nomes dos campos especificados.
+
+Não altere a quantidade de registros: devem existir exatamente 5 alunos, 5 livros, 5 exemplares e 5 empréstimos no script inicial.
+
+Não coloque o comando DELETE FROM alunos WHERE id_aluno = 5 no script principal de execução. Ele deve aparecer somente como exemplo didático.
+
+Não execute o UPDATE de exemplo no script principal se isso alterar os dados originais da atividade.
+
+Mantenha o script principal consistente e executável.
+
+Verifique as chaves estrangeiras.
+
+Verifique se todos os IDs utilizados existem.
+
+Use apenas SQL compatível com SQLite.
+
+O resultado final deve parecer uma apostila/tutorial de SQL para iniciantes, e não apenas uma lista de comandos.
+
+Antes de finalizar o arquivo, revise o Markdown para garantir que todos os títulos, tabelas e blocos de código estejam corretamente formatados.
+
+Ao terminar, informe no terminal/editor que o arquivo atividade_biblioteca_sqlite.md foi criado.
+
+Cole esse bloco inteiro no Antigravity. Ele já instrui o agente a criar o arquivo .md, preencher todo o conteúdo, incluir os exemplos, explicações, exercícios, gabarito e o script SQLite executável.
